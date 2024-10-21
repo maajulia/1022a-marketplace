@@ -47,17 +47,6 @@ app.get("/usuarios", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 app.listen(8000,()=>{
     console.log("Iniciei o servidor")
 })

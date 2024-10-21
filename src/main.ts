@@ -1,5 +1,4 @@
 
-
 import express from 'express'
 import mysql from 'mysql2/promise'
 import cors from 'cors'
@@ -26,6 +25,39 @@ app.get("/produtos", async(req,res)=>{
         res.status(500).send("Server ERROR")
     }
 })
+
+app.get("/usuarios", async (req, res) => {
+    try {
+        const conection = await mysql.createConnection({
+            host: process.env.dbhost ? process.env.dbhost : "localhost",
+            user: process.env.dbuser ? process.env.dbuser : "root",
+            password: process.env.dbpassword ? process.env.dbpassword : "",
+            database: process.env.dbname ? process.env.dbname : "banco1022a",
+            port: process.env.dbport ? parseInt(process.env.dbport) : 3306
+        });
+        
+        const [result, fields] = await conection.query("SELECT * FROM usuarios");
+        await conection.end();
+        
+        res.send(result);
+    } catch (e) {
+        res.status(500).send("Server ERROR");
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.listen(8000,()=>{
     console.log("Iniciei o servidor")
 })
